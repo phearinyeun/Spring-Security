@@ -18,20 +18,20 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "user")
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
 
     private Long id;
 
-    @Column(name = "firstname")
+    @Column(name = "firstname", length = 25)
     private String firstName;
 
-    @Column(name = "lastname")
+    @Column(name = "lastname", length = 25)
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", length = 50)
     private String email;
 
     @Column(name = "password")
@@ -39,39 +39,4 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }
